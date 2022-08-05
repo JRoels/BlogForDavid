@@ -3,9 +3,9 @@ from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from datetime import date
 import os
+import gunicorn
 from dotenv import load_dotenv
 from functools import wraps
-
 from werkzeug.exceptions import abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -14,7 +14,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 
-load_dotenv("C:/Users/admin_jroeloffs/PycharmProjects/EnviornmentVariables/.env")
+load_dotenv("C:/Users/admin_jroeloffs/PycharmProjects/EnviornmentVariables/.env.txt")
 SECRETKEY = os.getenv("MySecretKey")
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRETKEY

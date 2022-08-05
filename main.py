@@ -12,7 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from werkzeug.exceptions import abort
 from werkzeug.security import generate_password_hash, check_password_hash
-
+import re
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
 load_dotenv("C:/Users/admin_jroeloffs/PycharmProjects/EnviornmentVariables/.env.txt")
@@ -23,7 +23,12 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+
+uri = os.getenv("DATABASE_URL")
+if uri.startswith("postgress://")
+    uri = uri.replace("postgress://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",  "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

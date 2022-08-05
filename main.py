@@ -1,18 +1,19 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
+import os
+from datetime import date
+from functools import wraps
+import psycopg2
+from dotenv import load_dotenv
+from flask import Flask, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from datetime import date
-import os
-import gunicorn
-from dotenv import load_dotenv
-from functools import wraps
-from werkzeug.exceptions import abort
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask_gravatar import Gravatar
+from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
-from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+from werkzeug.exceptions import abort
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
-from flask_gravatar import Gravatar
 
 load_dotenv("C:/Users/admin_jroeloffs/PycharmProjects/EnviornmentVariables/.env.txt")
 SECRETKEY = os.getenv("MySecretKey")
@@ -22,7 +23,7 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

@@ -25,7 +25,7 @@ Bootstrap(app)
 # CONNECT TO DB
 
 uri = os.getenv("DATABASE_URL")
-if uri.startswith("postgress://")
+if uri.startswith("postgress://"):
     uri = uri.replace("postgress://", "postgresql://", 1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",  "sqlite:///blog.db")
